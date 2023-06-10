@@ -1,0 +1,46 @@
+body {
+    background: #000;
+    overflow: hidden;
+}
+.red {
+
+    background-color:  red;
+}
+.container{
+
+width: 3900px; 
+height: 500px;
+display: flex;
+
+
+
+}
+ .box {
+
+     height: 95%;
+     width: 100%; 
+    object-fit: cover;
+    transform: translateX(0%);
+    transition: transform 1s ease-out;
+
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    
+    position:absolute;
+    left: 40%;
+    top: 63%;
+   }
+.btn {
+  
+    width: 20px;
+    height: 20px;
+    margin-left: 2rem;
+    background-color: #fff;
+    border: 2px solid rgb(250, 113, 113);
+    display: block;
+    border-radius: 50%; 
+ } 
+ 
