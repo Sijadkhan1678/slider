@@ -4,44 +4,67 @@ const slides = document.querySelectorAll('.slides');
 const btn1 = document.querySelector('.btn0')
 const btn2 = document.querySelector('.btn1')
 const btn3 = document.querySelector('.btn2')
-const slideNavigators = document.querySelectorAll('.slideNavigator')
+const slideNavigators = document.querySelectorAll('.slideNavigator');
+let counter = 0
+// Detect slider to reach its last slide
+let is_Slider_Reached = false
 
 
-btn1.addEventListener('click', function (e) {
+function slide_Image(e = 1 || e) {
 
-    let slideCounter = e.target.className.slice(18, 19);
+    if (typeof e.target === 'object') {
 
-    slides.forEach(slide => slide.style.transform = `translateX(-${slideCounter * 100}%)`)
+        let slideCounter = e.target.className.slice(18, 19);
+        counter = slideCounter;
 
-    slideNavigators.forEach((slideNavigator, index) => {
+        slides.forEach(slide => slide.style.transform = `translateX(-${slideCounter * 100}%)`)
 
-        slideNavigator.style.backgroundColor = index == slideCounter ? '#66004d' : ''
-    })
+        slideNavigators.forEach((slideNavigator, index) => {
 
-})
+            slideNavigator.style.backgroundColor = index == slideCounter ? '#66004d' : ''
+        })
+    }
+    else {
+        let slideCounter = e
+        slides.forEach(slide => slide.style.transform = `translateX(-${slideCounter * 100}%)`)
 
-btn2.addEventListener('click', function (e) {
+        slideNavigators.forEach((slideNavigator, index) => {
 
-    let slideCounter = e.target.className.slice(18, 19);
+            slideNavigator.style.backgroundColor = index == slideCounter ? '#66004d' : ''
+        })
+    }
 
-    slides.forEach(slide => slide.style.transform = `translateX(-${slideCounter * 100}%)`)
 
-    slideNavigators.forEach((slideNavigator, index) => {
+}
 
-        slideNavigator.style.backgroundColor = index == slideCounter ? '#66004d' : ''
-    })
+function slide_Automator() {
 
-})
+    if (!is_Slider_Reached) {
+        counter++
+    }
 
-btn3.addEventListener('click', function (e) {
+    if (counter === 3 || is_Slider_Reached) {
 
-    let slideCounter = e.target.className.slice(18, 19);
+        counter--
+        is_Slider_Reached = true;
 
-    slides.forEach(slide => slide.style.transform = `translateX(-${slideCounter * 100}%)`)
+        if (counter === 0) {
+            is_Slider_Reached = false;
+        }
 
-    slideNavigators.forEach((slideNavigator, index) => {
+    }
 
-        slideNavigator.style.backgroundColor = index == slideCounter ? '#66004d' : ''
-    })
+    slide_Image(counter)
 
-})
+
+}
+
+// Automate sliding
+setInterval(slide_Automator, 1500)
+
+// Adding DOM Event listener
+btn1.addEventListener('click', slide_Image)
+
+btn2.addEventListener('click', slide_Image)
+
+btn3.addEventListener('click', slide_Image)
